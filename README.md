@@ -57,13 +57,13 @@ DataWedgeCordova\platforms\android\AndroidManifest.xml:
 ```
 
 ##  Add Code to the Cordova Application
-All that's left is to add some code to our Cordova application to listen for the intents.  For sake of brevity modify the onDeviceReady function to call out to our 3rd party intent plugin and register and handler for new Intents.  Assuming this is a DataWedge intent, process the data and display the barcode on the screen:
+All that's left is to add some code to our Cordova application to listen for the intents.  For sake of brevity modify the onDeviceReady function to call out to our 3rd party intent plugin and register a handler for new Intents.  Assuming this is a DataWedge intent, process the data and display the barcode on the screen:
 ```javascript
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
 
         window.plugins.intent.setNewIntentHandler(function (intent) {
-            console.log('Received Intent: ' + intent.extras["com.symbol.datawedge.data_string"]);
+            console.log('Received Intent: ' + JSON.stringify(intent.extras));
             var decodedBarcode = intent.extras["com.symbol.datawedge.data_string"];
             var parentElement = document.getElementById('barcodeData');
             if (parentElement && decodedBarcode)

@@ -37,7 +37,6 @@ var app = {
         document.getElementById("scanButton").addEventListener("click", softTrigger);
         window.plugins.intent.setNewIntentHandler(function (intent) {
             console.log('Received Intent: ' + JSON.stringify(intent.extras));
-            console.log('Received Intent: ' + intent.extras["com.symbol.datawedge.data_string"]);
             var decodedBarcode = intent.extras["com.symbol.datawedge.data_string"];
             var parentElement = document.getElementById('barcodeData');
             if (parentElement && decodedBarcode)
