@@ -34,7 +34,7 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
-
+        document.getElementById("scanButton").addEventListener("click", softTrigger);
         window.plugins.intent.setNewIntentHandler(function (intent) {
             console.log('Received Intent: ' + JSON.stringify(intent.extras));
             console.log('Received Intent: ' + intent.extras["com.symbol.datawedge.data_string"]);
@@ -61,3 +61,8 @@ var app = {
 };
 
 app.initialize();
+
+function softTrigger()
+{
+    window.plugins.webintent.sendBroadcast({action: 'com.symbol.datawedge.api.ACTION_SOFTSCANTRIGGER', extras: {'com.symbol.datawedge.api.EXTRA_PARAMETER': 'START_SCANNING'}}, function() {}, function() {});
+}
