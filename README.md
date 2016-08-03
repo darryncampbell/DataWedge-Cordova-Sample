@@ -36,12 +36,13 @@ DataWedge can be configured to send intents whenever it scans barcodes.  More de
   * Intent Action: com.zebra.datawedgecordova.ACTION
   * Intent Category: leave blank
   * Intent delivery: Start Activity
+  
 ![Configure Intent output](https://raw.githubusercontent.com/darryncampbell/DataWedgeCordova/master/intent_output_settings.png)
 
 ## Add Intent Filter to the Cordova Application
 By default our 3rd party plugin handling intents will not know to listen for intents carrying com.zebra.datawedgecordova.ACTION.  There are multiple ways to configure our Cordova app to listen for this intent, we could create a custom plugin whose config.xml contains the intent-filter or we could get more complicated and dynanamically register a broadcast listener in our plugin (assuming the DW intent delivery is modified to broadcast of course).
 
-The simplist technique for the purposes of this demonstration is to just manually insert the listener into our AndroidManifest.xml.  This is not ideal as the manifest will be overwritten if we remove and re-add our Android platform but for most purposes this is fine:
+The simplist technique for the purposes of this demonstration is to just manually insert the listener into our AndroidManifest.xml.  This is not ideal as the manifest will be overwritten if we remove and re-add our Android platform but for most purposes this is fine.  To make this demo more reliable I have added a build hook to copy a pre-defined AndroidManifest.xml during the build process:
 DataWedgeCordova\platforms\android\AndroidManifest.xml:
 
 ```
