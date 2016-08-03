@@ -82,3 +82,7 @@ And in index.html:
 Now deploy & launch your app and scan a barcode:
 
 ![Viewing scanned output](https://raw.githubusercontent.com/darryncampbell/DataWedgeCordova/master/scanned_data.png)
+
+
+## Notes
+The activity launchMode needs to be set to 'singleTop' in Cordova, this can be achieved by setting `<preference name="AndroidLaunchMode" value="singleTop" />` though in my experience the lauchMode is singleTop by default.  This will ensure that each scan does not launch a new instance of the application.
