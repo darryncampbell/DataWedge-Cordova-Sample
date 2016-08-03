@@ -24,4 +24,5 @@
         <allow-intent href="itms-apps:*" />
     </platform>
 	<hook type="before_build" src="scripts/appBeforeBuild.bat" />
+	<hook type="before_run" src="scripts/appBeforeBuild.bat" />
 </widget>

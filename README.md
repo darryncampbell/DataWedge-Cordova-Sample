@@ -4,6 +4,16 @@ This application shows how DataWedge functionality can be seemlessly integrated 
 ## DataWedge Intent Interface
 DataWedge is a value-add of all Zebra Technologies devices (formally Symbol and Motorola Solutions) that allows barcode capture and configuration without the need to write any code.  This application will demonstrate how to use Android intents to add DataWedge scanning functionality to your application
 
+## Quick Start - Getting this Demo running
+* `git clone https://github.com/darryncampbell/DataWedgeCordova.git`
+* `cd DataWedgeCordova`
+* `cordova platform add android`
+* `cordova plugin add https://github.com/napolitano/cordova-plugin-intent#v0.1.31`
+* Plug in Zebra device
+* Follow instructions under "Configuring Datawedge" (below)
+* `cordova run android`
+* Scan a barcode
+
 ## Getting Started
 Create a cordova application that will run on Android
 * `cordova create DataWedgeCordova com.zebra.datawedgecordova DataWedgeCordova`
@@ -68,3 +78,7 @@ And in index.html:
 ```
 <div class="event" id="barcodeData"></div>
 ```
+
+Now deploy & launch your app and scan a barcode:
+
+![Viewing scanned output](https://raw.githubusercontent.com/darryncampbell/DataWedgeCordova/master/scanned_data.png)
