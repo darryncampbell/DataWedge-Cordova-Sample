@@ -23,6 +23,8 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
-	<hook type="before_build" src="scripts/appBeforeBuild.bat" />
-	<hook type="before_run" src="scripts/appBeforeBuild.bat" />
+    <hook src="scripts/appBeforeBuild.bat" type="before_build" />
+    <hook src="scripts/appBeforeBuild.bat" type="before_run" />
+    <plugin name="com.virtualartifacts.webintent" spec="https://github.com/florentvaldelievre/virtualartifacts-webIntent.git" />
+    <plugin name="com.napolitano.cordova.plugin.intent" spec="https://github.com/napolitano/cordova-plugin-intent#v0.1.31" />
 </widget>

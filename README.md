@@ -8,7 +8,6 @@ DataWedge is a value-add of all Zebra Technologies devices (formally Symbol and 
 * `git clone https://github.com/darryncampbell/DataWedgeCordova.git`
 * `cd DataWedgeCordova`
 * `cordova platform add android`
-* `cordova plugin add https://github.com/napolitano/cordova-plugin-intent#v0.1.31`
 * Plug in Zebra device
 * Follow instructions under "Configuring Datawedge" (below)
 * `cordova run android`
