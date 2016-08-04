@@ -92,6 +92,13 @@ h1 {
     display:block;
 }
 
+.event.action {
+    background-color:#ffd200;
+    color:#000000;
+    display:block;
+    padding:10px 0px;    
+}
+
 .event.received {
     background-color:#4B946A;
     display:none;

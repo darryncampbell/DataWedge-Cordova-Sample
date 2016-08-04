@@ -34,7 +34,8 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
-        document.getElementById("scanButton").addEventListener("click", softTrigger);
+        document.getElementById("scanButton").addEventListener("click", startSoftTrigger);
+        document.getElementById("disableScanningButton").addEventListener("click", disableEnableScanning);
         window.plugins.intent.setNewIntentHandler(function (intent) {
             console.log('Received Intent: ' + JSON.stringify(intent.extras));
             var decodedBarcode = intent.extras["com.symbol.datawedge.data_string"];
@@ -61,7 +62,48 @@ var app = {
 
 app.initialize();
 
-function softTrigger()
+function startSoftTrigger()
 {
-    window.plugins.webintent.sendBroadcast({action: 'com.symbol.datawedge.api.ACTION_SOFTSCANTRIGGER', extras: {'com.symbol.datawedge.api.EXTRA_PARAMETER': 'START_SCANNING'}}, function() {}, function() {});
+    window.plugins.webintent.sendBroadcast({
+        action: 'com.symbol.datawedge.api.ACTION_SOFTSCANTRIGGER', 
+        extras: {
+            'com.symbol.datawedge.api.EXTRA_PARAMETER': 'START_SCANNING'
+            }
+        }, 
+        function() {}, 
+        function() {}
+    );
+}
+
+function disableEnableScanning()
+{
+    var button = document.getElementById("disableScanningButton");
+    if (button.innerHTML == "Disable Scanning")
+    {
+        console.log("Disabling scanning");
+        window.plugins.webintent.sendBroadcast({
+            action: 'com.symbol.datawedge.api.ACTION_SCANNERINPUTPLUGIN', 
+            extras: {
+                'com.symbol.datawedge.api.EXTRA_PARAMETER': 'DISABLE_PLUGIN'
+                }
+            }, 
+            function() {}, 
+            function() {}
+        );
+        button.innerHTML = "Enable Scanning";
+    }
+    else
+    {
+        console.log("Enabling scanning");
+        window.plugins.webintent.sendBroadcast({
+            action: 'com.symbol.datawedge.api.ACTION_SCANNERINPUTPLUGIN', 
+            extras: {
+                'com.symbol.datawedge.api.EXTRA_PARAMETER': 'ENABLE_PLUGIN'
+                }
+            }, 
+            function() {}, 
+            function() {}
+        );
+        button.innerHTML = "Disable Scanning";
+    }
 }
