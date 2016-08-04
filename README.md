@@ -14,29 +14,32 @@ DataWedge is a value-add of all Zebra Technologies devices (formally Symbol and 
 * Scan a barcode
 
 ## Getting Started
+This section walks through the steps to create a new Cordova application that utilizes DataWedge for scanning.
+
 Create a cordova application that will run on Android
 * `cordova create DataWedgeCordova com.zebra.datawedgecordova DataWedgeCordova`
 * `cordova platform android`
 
-We will use a 3rd party plugin to handle sending and receiving Intents to the DataWedge service.  Any plugin capable of receiving generic intents and interpreting the extra bundle into JSON will work and https://www.npmjs.com/package/cordova-plugin-intent seems quite lightweight
+We will use a couple of 3rd party plugin to handle sending and receiving Intents to the DataWedge service.  Any plugins capable of sending or receiving generic intents and interpreting the extra bundle into JSON will work:
 
-* `cordova plugin add https://github.com/napolitano/cordova-plugin-intent#v0.1.31`
+* `cordova plugin add https://github.com/napolitano/cordova-plugin-intent#v0.1.31` for receiving intents
+* `cordova plugin add https://github.com/Initsogar/cordova-webintent.git` for sending intents
 
-Bear in mind of course that if the 3rd party plugin changes its implementation or interface then this code may no longer work, for this reason we'll use the latest version available whilst putting this app togeter, v0.1.31.
+The author of the plugin we'll use to receive intents very helpfully added parsing of intent extras into JSON in the 1.31 release so we'll explicitely grab that version.
 
 ## Configuring Datawedge
-DataWedge can be configured to send intents whenever it scans barcodes.  More detailed help is available at the [official documentation](http://techdocs.zebra.com/datawedge/5-0/guide/setup/) but for the purposes of this demo I will include the pertinent steps.  You can skip this section entirely if you are familiar with DataWedge
+DataWedge can be configured to send intents whenever it scans barcodes.  More detailed help is available at the [official documentation](http://techdocs.zebra.com/datawedge/5-0/guide/setup/) but for the purposes of this demo I will include the pertinent steps.  There are more sophisticated ways to configure DataWedge but this section will cover the basics.
 
 1. Create a new DataWedge profile (Applications --> DataWedge --> Menu --> New Profile).  This will be the profile that will be active when our Cordova application is in the foreground.  Give it a name e.g. DataWedgeCordova and click into it to configure.
-2. Quickly run the Cordova application on the device `cordova run android`
+2. The next step requires our Cordova application to have previously run on the device so if you have not already done so, `cordova run android`
 3. Back in DataWedge configuration associate the Cordova application with our DW profile
-![Associate app](https://raw.githubusercontent.com/darryncampbell/DataWedgeCordova/master/associate_app.png)
+![Associate app](https://raw.githubusercontent.com/darryncampbell/DataWedgeCordova/master/screens/associate_app.png)
 4. Scroll down to the Intent Output section of DW configuration and enable intents to start our activity:
   * Intent Action: com.zebra.datawedgecordova.ACTION
   * Intent Category: leave blank
   * Intent delivery: Start Activity
   
-![Configure Intent output](https://raw.githubusercontent.com/darryncampbell/DataWedgeCordova/master/intent_output_settings.png)
+![Configure Intent output](https://raw.githubusercontent.com/darryncampbell/DataWedgeCordova/master/screens/intent_output_settings.png)
 
 ## Add Intent Filter to the Cordova Application
 By default our 3rd party plugin handling intents will not know to listen for intents carrying com.zebra.datawedgecordova.ACTION.  There are multiple ways to configure our Cordova app to listen for this intent, we could create a custom plugin whose config.xml contains the intent-filter or we could get more complicated and dynanamically register a broadcast listener in our plugin (assuming the DW intent delivery is modified to broadcast of course).
@@ -56,8 +59,11 @@ DataWedgeCordova\platforms\android\AndroidManifest.xml:
         </activity>
 ```
 
-##  Add Code to the Cordova Application
-All that's left is to add some code to our Cordova application to listen for the intents.  For sake of brevity modify the onDeviceReady function to call out to our 3rd party intent plugin and register a handler for new Intents.  Assuming this is a DataWedge intent, process the data and display the barcode on the screen:
+##  Add Code to the Cordova application
+Now to hook up our logic to listen for and send intents.
+
+### Listening for intents
+For sake of brevity modify the onDeviceReady function to call out to our 3rd party intent plugin and register a handler for new Intents.  Assuming this is a DataWedge intent, process the data and display the barcode on the screen:
 ```javascript
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
@@ -79,10 +85,52 @@ And in index.html:
 <div class="event" id="barcodeData"></div>
 ```
 
-Now deploy & launch your app and scan a barcode:
+### Sending intents
+DataWedge supports an intent based API [documented here](http://techdocs.zebra.com/datawedge/5-0/guide/api/).  The API is somewhat limited but supports initiating the scanner via software (simulating a trigger press), disabling the scanner entirely and various DataWedge profile operations.  We'll be adding features to our application to simulate a trigger press and disable / enable the scanner through that Intent interface:
 
-![Viewing scanned output](https://raw.githubusercontent.com/darryncampbell/DataWedgeCordova/master/scanned_data.png)
+To simulate a trigger press:
+```
+window.plugins.webintent.sendBroadcast({
+    action: 'com.symbol.datawedge.api.ACTION_SOFTSCANTRIGGER', 
+    extras: {
+        'com.symbol.datawedge.api.EXTRA_PARAMETER': 'START_SCANNING'
+        }
+    }, 
+    function() {}, 
+    function() {}
+);
+```
 
+To disable the scanner:
+```
+window.plugins.webintent.sendBroadcast({
+    action: 'com.symbol.datawedge.api.ACTION_SCANNERINPUTPLUGIN', 
+    extras: {
+        'com.symbol.datawedge.api.EXTRA_PARAMETER': 'DISABLE_PLUGIN'
+        }
+    }, 
+    function() {}, 
+    function() {}
+);
+```
+And hook up our logic to the UI:
+```
+document.getElementById("scanButton").addEventListener("click", startSoftTrigger);
+document.getElementById("disableScanningButton").addEventListener("click", disableEnableScanning);
+```
+
+Now deploy & launch your app.  You are able to scan barcodes and exercise the functionality:
+
+![Viewing scanned output](https://raw.githubusercontent.com/darryncampbell/DataWedgeCordova/master/screens/scanned_data.png)
 
 ## Notes
 The activity launchMode needs to be set to 'singleTop' in Cordova, this can be achieved by setting `<preference name="AndroidLaunchMode" value="singleTop" />` though in my experience the lauchMode is singleTop by default.  This will ensure that each scan does not launch a new instance of the application.
+
+## Feedback
+This technique for adding scanning capabilities to a Cordova application represents the most generic possible solution.  We appreciate your developer feedback:
+* Would you prefer a dedicated Cordova plugin for Javascript?
+* Would you like to access EMDK profile functionality through Cordova?
+* Would you rather a dedicated Javascript interface as opposed to relying on third party plugins?
+* Are you interested in JavaScript development outside of Cordova e.g. ReactNative or NativeScript for your Enterprise application
+
+Please feel free to raise github issues on this repository or post comments to the accompanying blog.
