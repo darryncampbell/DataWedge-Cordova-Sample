@@ -1,10 +1,6 @@
 # Integrating DataWedge into your Cordova application
 This application shows how DataWedge functionality can be seamlessly integrated into your new or existing Cordova / Ionic / Phonegap applications using 3rd party plugins
 
-[![npm version](http://img.shields.io/npm/v/com-darryncampbell-enterprisebarcode.svg?style=flat-square)](https://npmjs.org/package/com-darryncampbell-enterprisebarcode "View this project on npm")
-[![npm downloads](http://img.shields.io/npm/dm/com-darryncampbell-enterprisebarcode.svg?style=flat-square)](https://npmjs.org/package/com-darryncampbell-enterprisebarcode "View this project on npm")
-[![npm licence](http://img.shields.io/npm/l/com-darryncampbell-enterprisebarcode.svg?style=flat-square)](https://npmjs.org/package/com-darryncampbell-enterprisebarcode "View this project on npm")
-
 ## DataWedge Intent Interface
 DataWedge is a value-add of all Zebra Technologies devices (formally Symbol and Motorola Solutions) that allows barcode capture and configuration without the need to write any code.  This application will demonstrate how to use Android intents to add DataWedge scanning functionality to your application
 
