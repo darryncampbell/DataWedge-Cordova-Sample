@@ -36,6 +36,7 @@ var app = {
         app.receivedEvent('deviceready');
         document.getElementById("scanButton").addEventListener("click", startSoftTrigger);
         document.getElementById("disableScanningButton").addEventListener("click", disableEnableScanning);
+        document.getElementById("setProfileButton").addEventListener("click", setProfile);
         window.plugins.intent.setNewIntentHandler(function (intent) {
             console.log('Received Intent: ' + JSON.stringify(intent.extras));
             var decodedBarcode = intent.extras["com.symbol.datawedge.data_string"];
@@ -106,4 +107,18 @@ function disableEnableScanning()
         );
         button.innerHTML = "Disable Scanning";
     }
+}
+
+function setProfile()
+{
+    var profile = document.getElementById('profileName').value;
+    window.plugins.webintent.sendBroadcast({
+        action: 'com.symbol.datawedge.api.ACTION_SWITCHTOPROFILE', 
+        extras: {
+            'com.symbol.datawedge.api.EXTRA_PROFILENAME': profile
+            }
+        }, 
+        function() {}, 
+        function() {}
+    );
 }
