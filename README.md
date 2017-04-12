@@ -1,3 +1,11 @@
+# Update - April 2017
+It has come to my attention that since this application was first created a year ago, there are several issues with the solution:
+- The 3rd party plugin that I am using to send broadcast intents has been removed from GitHub
+- The 3rd party plugin that I am using to receive barcode (startActivity) intents has been marked as no longer maintained
+- The solution here does not take account of the new DataWedge APIs introduced in DataWedge 6.2.  
+
+**I am working on these issues and hope to update this application in the near future.**
+
 # Integrating DataWedge into your Cordova application
 This application shows how DataWedge functionality can be seamlessly integrated into your new or existing Cordova / Ionic / Phonegap applications using 3rd party plugins
 
