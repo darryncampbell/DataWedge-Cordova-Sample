@@ -1,22 +1,4 @@
 <!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
 <html>
     <head>
         <!--
@@ -33,23 +15,31 @@
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
         <link rel="stylesheet" type="text/css" href="css/index.css">
-        <title>Hello World</title>
+        <title>DataWedge Cordova</title>
     </head>
     <body>
         <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
-            <div class="event" id="barcodeData"></div>
-            <P>
-            <div class="event action" id="scanButton">Start Scanning</div>
+            <h1>DataWedge Cordova</h1>
+            <div class="event display" id="broadcastData">Scanned barcodes will be displayed here</div>
+            <H2>DataWedge 6.x APIs</H2>
+            <div class="event action" id="scanButton">Toggle Scanning</div>
             <P>
             <div class="event action" id="disableScanningButton">Disable Scanning</div>
             <P>
-            <div class="event action"><input type="text" id="profileName" value="profile name"></div>
-            <div class="event action" id="setProfileButton">Set Profile</div>
+            <input type="text" id="profileName" value="profile name">
+            <div class="event action" id="setProfileButton">Set Active Profile</div>
+
+            <H2>DataWedge 6.2 APIs</H2>
+            <P>
+            <div class="event display" id="activeProfileData">Your device does not support 6.2 APIs</div>
+            Profiles: 
+            <select id="profilesSelect">
+                <option value="init">Your device does not support 6.2 APIs</option>
+            </select>
+            <P>
+            <input type="text" id="newProfileName" value="new profile name">
+            <div class="event action" id="renameProfileButton">Rename Profile</div>
+            <div class="event action" id="disableDataWedge">Disable DataWedge</div>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>

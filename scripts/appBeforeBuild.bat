@@ -1,1 +1,0 @@
-copy AndroidManifest.xml platforms/android/AndroidManifest.xml
