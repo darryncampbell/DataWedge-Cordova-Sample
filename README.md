@@ -23,7 +23,7 @@ Create a cordova application that will run on Android
 * `cordova create DataWedgeCordova com.zebra.datawedgecordova DataWedgeCordova`
 * `cordova platform add android`
 
-We will use a couple of 3rd party plugin to handle sending and receiving Intents to the DataWedge service.  Any plugins capable of sending or receiving generic intents and interpreting the extra bundle into JSON will work:
+We will use a 3rd party plugin to handle sending and receiving Intents to the DataWedge service.  Any plugin capable of sending or receiving generic intents and interpreting the extra bundle into JSON should work:
 
 * `cordova plugin add https://github.com/darryncampbell/plugin-intent-api-exerciser`
 
