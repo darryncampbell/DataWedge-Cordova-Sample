@@ -23,5 +23,6 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
-    <plugin name="com-darryncampbell-cordova-plugin-intent" spec="https://github.com/darryncampbell/darryncampbell-cordova-plugin-intent.git" />
+    <plugin name="com-darryncampbell-cordova-plugin-intent" spec="^0.1.2" />
+    <engine name="android" spec="~7.0.0" />
 </widget>

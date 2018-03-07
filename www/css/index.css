@@ -62,11 +62,27 @@ h1 {
     text-align:center;
 }
 
+.info {
+    text-align:left;
+    font-size:14px;
+}
+
+.header {
+    text-align:left;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.attention {
+    background-color:#FFD200;
+    color:#000000;
+}
+
 .event {
     border-radius:4px;
     -webkit-border-radius:4px;
     color:#FFFFFF;
-    font-size:12px;
+    font-size:14px;
     margin:10px 10px 10px 10px;
     padding:2px 0px;
     word-break: break-word;
