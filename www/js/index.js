@@ -241,12 +241,13 @@ function commandReceived(commandText) {
 
 function enumerateScanners(enumeratedScanners) {
     var humanReadableScannerList = "";
-    enumeratedScanners.forEach((scanner, index) => {
-        console.log("Scanner found: name= " + scanner.SCANNER_NAME + ", id=" + scanner.SCANNER_INDEX + ", connected=" + scanner.SCANNER_CONNECTION_STATE);
-        humanReadableScannerList += scanner.SCANNER_NAME;
-        if (index < enumeratedScanners.length - 1)
+    for (var i = 0; i < enumeratedScanners.length; i++)
+    {
+        console.log("Scanner found: name= " + enumeratedScanners[i].SCANNER_NAME + ", id=" + enumeratedScanners[i].SCANNER_INDEX + ", connected=" + enumeratedScanners[i].SCANNER_CONNECTION_STATE);
+        humanReadableScannerList += enumeratedScanners[i].SCANNER_NAME;
+        if (i < enumeratedScanners.length - 1)
             humanReadableScannerList += ", ";
-    });
+    }
     document.getElementById('info_availableScanners').innerHTML = humanReadableScannerList;
 }
 
