@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <!--
+
+<head>
+    <!--
         Customize this policy to fit your own app's needs. For more guidance, see:
             https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
         Some notes:
@@ -10,38 +11,70 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
-        <title>DataWedge Cordova</title>
-    </head>
-    <body>
-        <div class="app">
-            <h1>DataWedge Cordova</h1>
-            <div class="event display" id="broadcastData">Scanned barcodes will be displayed here</div>
-            <H2>DataWedge 6.x APIs</H2>
-            <div class="event action" id="scanButton">Toggle Scanning</div>
-            <P>
-            <div class="event action" id="disableScanningButton">Disable Scanning</div>
-            <P>
-            <input type="text" id="profileName" value="profile name">
-            <div class="event action" id="setProfileButton">Set Active Profile</div>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <title>DataWedge Cordova</title>
+</head>
 
-            <H2>DataWedge 6.2 APIs</H2>
-            <P>
-            <div class="event display" id="activeProfileData">Your device does not support 6.2 APIs</div>
-            Profiles: 
-            <select id="profilesSelect">
-                <option value="init">Your device does not support 6.2 APIs</option>
-            </select>
-            <P>
-            <input type="text" id="newProfileName" value="new profile name">
-            <div class="event action" id="renameProfileButton">Rename Profile</div>
-            <div class="event action" id="disableDataWedge">Disable DataWedge</div>
-        </div>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-    </body>
+<body>
+    <div class="app">
+        <h1>Zebra Cordova DataWedge Demo</h1>
+        <H3>Information / Configuration</H3>
+        <div class="header">Datawedge version:</div>
+        <div class="info attention" id="info_datawedgeVersion">Pre 6.3. Please create &amp; configure profile manually. See the ReadMe for more details</div>
+        <P></P>
+        <div class="header">Active Profile:</div>
+        <div class="info" id="info_activeProfile">Requires Datawedge 6.3+</div>
+        <P></P>
+        <div class="header" id="header_lastApiMessage">Last API message:</div>
+        <div class="info" id="info_lastApiMessage">Messages from Datawedge will go here</div>
+        <P></P>
+        <div class="header">Available scanners:</div>
+        <div class="info" id="info_availableScanners">Requires Datawedge 6.3+</div>
+        <P></P>
+        <table width="100%">
+            <tr>
+                <td align="left">
+                    <div>
+                        <input id="chk_ean8" type="checkbox" onchange='setDecoders(this);' checked>
+                        <label for="chk_ean8">EAN 8</label>
+                    </div>
+
+                </td>
+                <td align="left">
+                    <div>
+                        <input id="chk_ean13" type="checkbox" onchange='setDecoders(this);' checked>
+                        <label for="chk_ean13">EAN 13</label>
+                    </div>
+
+                </td>
+            </tr>
+            <tr>
+                <td align="left">
+                    <div>
+                        <input id="chk_code39" type="checkbox" onchange='setDecoders(this);' checked>
+                        <label for="chk_code39">Code 39</label>
+                    </div>
+
+                </td>
+                <td align="left">
+                    <div>
+                        <input id="chk_code128" type="checkbox" onchange='setDecoders(this);' checked>
+                        <label for="chk_code128">Code 128</label>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div class="event action" id="scanButton">Scan</div>
+        <H3>Scanned Barcodes</H3>
+
+        <div class="event display" id="scannedBarcodes">Scanned barcodes will be displayed here</div>
+    </div>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+</body>
+
 </html>
