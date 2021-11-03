@@ -125,11 +125,11 @@ function registerBroadcastReceiver() {
                 console.log("Datawedge version: " + datawedgeVersion);
 
                 //  Fire events sequentially so the application can gracefully degrade the functionality available on earlier DW versions
-                if (datawedgeVersion >= "6.3")
+                if (datawedgeVersion >= "06.3")
                     datawedge63();
-                if (datawedgeVersion >= "6.4")
+                if (datawedgeVersion >= "06.4")
                     datawedge64();
-                if (datawedgeVersion >= "6.5")
+                if (datawedgeVersion >= "06.5")
                     datawedge65();
             }
             else if (intent.extras.hasOwnProperty('com.symbol.datawedge.api.RESULT_ENUMERATE_SCANNERS')) {
